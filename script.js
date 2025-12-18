@@ -15,14 +15,24 @@ function adjustHeight() {
 textInput.addEventListener("input", () => {
     adjustHeight();
 
-    const text = textInput.value.trim();
+    const rawText = textInput.value;
+
+    /* CHARACTER (TERMASUK SPASI) */
+    const characters = rawText.length;
+
+    /* WORD */
+    const text = rawText.trim();
     const words = text ? text.split(/\s+/).length : 0;
+
+    /* SENTENCE */
     const sentences = text
         ? text.split(/[.!?]+/).filter(s => s.trim()).length
         : 0;
 
-    counter.innerHTML = `${words} Word &nbsp; ${sentences} Sentence`;
+    counter.innerHTML =
+        `${characters} Char &nbsp; ${words} Word &nbsp; ${sentences} Sentence`;
 });
+
 
 /* WINDOW RESIZE SUPPORT */
 window.addEventListener("resize", adjustHeight);
@@ -66,3 +76,4 @@ function copyText() {
     if (!textInput.value) return;
     navigator.clipboard.writeText(textInput.value);
 }
+
